@@ -11,8 +11,25 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
-library(tidyverse)
+# reading in data
 
-data <- read_csv("HW3Data.csv")
+library(tidyverse)
+library(stargazer)
+
+
+whale_data <- read_csv("HW3Data.csv")
 ```
+
+```{r}
+
+vote_model <- lm(vote ~ age + income+ NEP+ risk +bid, data = whale_data)
+
+vote_model
+summary(vote_model)
+
+```
+
+
+
+
 
