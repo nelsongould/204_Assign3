@@ -10,24 +10,84 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r}
+```{r, include = FALSE}
 # reading in data
 
 library(tidyverse)
 library(stargazer)
 
 
-whale_data <- read_csv("HW3Data.csv")
+whale_data <- read_csv("HW3Data.csv") %>% 
+  # Factorializing and leveling income and age data
+  mutate(income = factor(income, levels = c("poor","middle","rich","very_rich","one_percent"))) %>% 
+  mutate(age = factor(age, levels = c("tothirty","toforty","tofifty","tosixty","oversixty"))) %>% 
+  mutate(risk = risk/100)
+
 ```
 
-```{r}
+```{r, message = FALSE}
 
 vote_model <- lm(vote ~ age + income+ NEP+ risk +bid, data = whale_data)
 
 vote_model
 summary(vote_model)
 
+mean_vote <- mean(whale_data$vote)
+mean_vote
+
+mean_NEP <- mean(whale_data$NEP)
+mean_NEP
+
 ```
+
+```{r, results = "asis"}
+# Creating stargazer table for problem 1
+
+stargazer(vote_model, type = "html")
+
+```
+
+
+```{r}
+
+# Problem 2, value of single whale death
+
+v_co <- data.frame(t(vote_model$coefficients))
+int <- as.numeric(v_co[1])
+to40 <- as.numeric(v_co[2])
+to50 <- as.numeric(v_co[3])
+to60 <- as.numeric(v_co[4])
+over60 <- as.numeric(v_co[5])
+mid <- as.numeric(v_co[6])
+rich <- as.numeric(v_co[7])
+very_rich <- as.numeric(v_co[8])
+one_percent <-as.numeric(v_co[9])
+NEP <- as.numeric(v_co[10])
+risk <- as.numeric(v_co[11])
+bid <- as.numeric(v_co[12])
+
+
+# Creating equation in terms of bid (WTP). Assumptions: tothirty, poor, risk = 0.04, vote = 0.7, NEP = 38.366 (average))
+
+wtp_onewhale <- (int + 0.7 + NEP*38.366 + risk*0.04)/bid
+wtp_onewhale
+
+r
+
+
+```
+
+
+```{r}
+
+# Problem 3, WTP for three random respondants 
+
+three_random_df <- whale_data[sample(nrow(whale_data), 3), ]
+three_random_df
+
+
+```
+
 
 
 
