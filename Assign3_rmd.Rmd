@@ -38,6 +38,13 @@ mean_vote
 mean_NEP <- mean(whale_data$NEP)
 mean_NEP
 
+mode_age <-  names(sort(summary(whale_data$age), decreasing=T)[1])
+mode_age
+
+mode_income <- names(sort(summary(whale_data$income), decreasing=T)[1])
+mode_income
+
+
 ```
 
 ```{r, results = "asis"}
@@ -69,10 +76,12 @@ bid <- as.numeric(v_co[12])
 
 # Creating equation in terms of bid (WTP). Assumptions: tothirty, poor, risk = 0.04, vote = 0.7, NEP = 38.366 (average))
 
-wtp_onewhale <- (int + 0.7 + NEP*38.366 + risk*0.04)/bid
+wtp_onewhale <- (int + -0.7 + NEP*38.366 + risk*0.04 + one_percent)/(-bid)
 wtp_onewhale
 
-r
+# WTP for One Whale = $56.62
+
+
 
 
 ```
@@ -89,6 +98,18 @@ three_random_df
 ```
 
 
+```{r}
+# Problem 4
+
+wtp_60risk <- (int + -0.7 + NEP*38.366 + risk*0.6 + one_percent)/(-bid)
+wtp_60risk
+
+# Found the average WTP, now we multiply by the pop of SB 
+
+total_benefit_60risk <- wtp_60risk*150000
+total_benefit_60risk
+
+```
 
 
 
