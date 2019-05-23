@@ -94,6 +94,20 @@ wtp_onewhale
 three_random_df <- whale_data[sample(nrow(whale_data), 3), ]
 three_random_df
 
+#1 
+wtp_60rand1 <- (int + -0.7 + NEP*47 + risk*0.6 + to40)/(-bid)
+
+#2
+wtp_60rand2 <- (int + -0.7 + NEP*17 + risk*0.6 + one_percent + to50)/(-bid)
+
+#3 
+wtp_60rand3 <- (int + -0.7 + NEP*38 + risk*0.6 + one_percent + to60)/(-bid)
+
+# The WTP for each of the three:
+
+wtp_60rand1
+wtp_60rand2
+wtp_60rand3
 
 ```
 
